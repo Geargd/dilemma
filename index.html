@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ethical Dilemma: Algorithmic Integrity</title>
+    <title>Ethical Dilemma: Infrastructure & Privacy</title>
     <style>
         * {
             box-sizing: border-box;
@@ -67,18 +67,20 @@
             background: #1f2937;
             padding: 18px;
             border-radius: 12px;
-            border-left: 4px solid #6366f1;
+            border-left: 4px solid #f43f5e;
         }
 
+        /* Framework banner placed AFTER the choice feedback */
         .legal-framework {
             font-size: 0.85rem;
-            background: rgba(99, 102, 241, 0.1);
-            color: #818cf8;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-bottom: 16px;
-            font-weight: 500;
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(244, 63, 94, 0.1);
+            color: #fb7185;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            line-height: 1.4;
         }
 
         .question {
@@ -113,15 +115,15 @@
 
         .option-btn:active {
             background-color: #374151;
-            border-color: #818cf8;
+            border-color: #f43f5e;
             transform: scale(0.98);
         }
 
         .restart-btn {
             width: 100%;
             margin-top: auto;
-            background: #312e81;
-            color: #e0e7ff;
+            background: #4c1d95;
+            color: #ddd6fe;
             border: none;
             padding: 16px;
             border-radius: 14px;
@@ -129,11 +131,11 @@
             font-weight: 600;
             cursor: pointer;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(49, 46, 129, 0.3);
+            box-shadow: 0 4px 12px rgba(76, 29, 149, 0.3);
         }
 
         .restart-btn:active {
-            background: #3c38ca;
+            background: #5b21b6;
         }
 
         @keyframes slideUp {
@@ -153,80 +155,80 @@
             // LEVEL 1: THE INITIAL DILEMMA
             start: {
                 status: "Stage 1 • The Discovery",
-                framework: "Applicable Code: ACM Code of Ethics (Section 1.2: Avoid Harm)",
-                backstory: "You are a Lead Data Scientist deploying an AI-driven predictive risk assessment system for a major healthcare provider. Forty-eight hours before launch, you discover the algorithm consistently misclassifies minority demographic groups as 'low priority' for preventative critical care due to historical training data bias.",
-                question: "Your project manager insists on launching anyway to meet the hard deadline, promising a patch later. What do you do?",
+                framework: null,
+                backstory: "You are a Senior Software Architect developing a next-generation autopilot ecosystem. To achieve rapid path-prediction around urban areas, the system continuously captures, profiles, and cross-references biometric facial data and real-time location metrics of unsuspecting street pedestrians, storing it on centralized corporate servers without public consent.",
+                question: "The legal department pushes for an immediate rollout to beat competitors, dismissing privacy concerns as technicalities. Do you sign off on the architecture?",
                 options: [
-                    { text: "🛑 Refuse to deploy and formally escalate the bias issue.", nextStep: "path_escalate" },
-                    { text: "🚀 Proceed with the launch but secretly log the algorithmic anomalies.", nextStep: "path_launch_lvl2" }
+                    { text: "🛑 Block the rollout and demand a complete privacy-first redesign.", nextStep: "path_block" },
+                    { text: "🚀 Approve the launch and plan to introduce data scrubbing algorithms later.", nextStep: "path_approve_lvl2" }
                 ]
             },
 
-            // LEVEL 2: PATH A (Safety first -> branch leads to outcomes)
-            path_escalate: {
-                status: "Stage 2 • The Corporate Backlash",
-                framework: "Applicable Framework: EU AI Act (High-Risk AI Systems Compliance)",
-                backstory: "You blocked the deployment. Management is furious about the missed launch window and accuses you of breaching your employment contract. However, your action aligns perfectly with the EU AI Act, which mandates strict data governance and bias mitigation before deployment.",
-                question: "The executive team demands you sign off on a liability waiver or face termination. How do you respond?",
+            // LEVEL 2: PATH A (Safety/Privacy Overrides -> Ends in specific outcomes)
+            path_block: {
+                status: "Stage 2 • Corporate Retaliation",
+                framework: "⚖️ Framework Impacted: ACM Code of Ethics (Section 1.2: Avoid Harm & Section 1.6: Respect Privacy). Your decision actively prevented an immediate mass surveillance violation.",
+                backstory: "By withholding your signature, you stood up for fundamental data rights. However, corporate executives accuse you of insubordination and threatening market survival. They demand you hand over the repository access controls to a junior manager who is willing to approve the system.",
+                question: "If you refuse, you will be terminated immediately and lose your stock options. What do you do?",
                 options: [
-                    { text: "💼 Stand your ground, document the bias, and prepare for legal protection.", nextStep: "final_whistleblower" },
-                    { text: "✍️ Sign the waiver to protect your career, leaving responsibility to the company.", nextStep: "final_compromised" }
+                    { text: "💼 Refuse to hand over access and document the ethical violation for legal protection.", nextStep: "final_ethical_victory" },
+                    { text: "🤝 Yield under corporate pressure, surrender access, and resign quietly.", nextStep: "final_coerced_exit" }
                 ]
             },
 
-            // LEVEL 2: PATH B (Risk -> continues deeper to Level 3)
-            path_launch_lvl2: {
-                status: "Stage 2 • The Fallout",
-                framework: "Applicable Framework: GDPR (Article 5: Fairness and Transparency)",
-                backstory: "The system is live. Three months later, a public health watchdog publishes a report exposing systemic bias in your software, citing real cases where vulnerable patients were denied early intervention. An internal audit begins, and the company is looking for a scapegoat.",
-                question: "Your recorded logs prove you knew about the issue before launch. What is your next move?",
+            // LEVEL 2: PATH B (Approving -> Leads deeper to Level 3)
+            path_approve_lvl2: {
+                status: "Stage 2 • The Data Breach",
+                framework: "🚨 Regulatory Violation: GDPR Article 5 (Principles relating to processing of personal data) & Article 25 (Data protection by design and by default).",
+                backstory: "The smart vehicle fleet is deployed. Five months later, a sophisticated cyberattack breaches your centralized servers, leaking unencrypted tracking logs and biometric data of over two million citizens. European data protection authorities launch a major investigation, putting your engineering choices under a microscope.",
+                question: "Company lawyers advise you to claim that the telemetry collection was an unpredictable edge-case system anomaly rather than intentional design. Do you support their narrative?",
                 options: [
-                    { text: "💾 Leak the internal logs to the press to prove management knew.", nextStep: "path_leak_lvl3" },
-                    { text: "🤫 Cooperate with the internal legal team and delete your private logs.", nextStep: "final_corporate_coverup" }
+                    { text: "💾 Refuse to mislead regulators and provide the complete architectural blueprints.", nextStep: "path_transparency_lvl3" },
+                    { text: "✍️ Accept the company line to avoid personal liability and protect the corporate brand.", nextStep: "final_corporate_shield" }
                 ]
             },
 
             // LEVEL 3: DEEP NESTING (Path B continued)
-            path_leak_lvl3: {
-                status: "Stage 3 • Whistleblowing",
-                framework: "Applicable Law: Directive (EU) 2019/1937 (Whistleblower Protection)",
-                backstory: "You leaked the data. The media storm is massive. Regulatory bodies are launching multi-million dollar fine proceedings under GDPR and the AI Act. Your identity is secure for now, but an aggressive corporate cybersecurity forensic team is tracking the source of the leak.",
-                question: "A junior colleague is falsely accused of being the leaker and faces immediate termination and legal action. Do you come forward?",
+            path_transparency_lvl3: {
+                status: "Stage 3 • Systemic Accountability",
+                framework: "⚖️ Framework Invoked: GDPR Article 33 (Notification of a personal data breach) & ACM Code Section 1.4 (Be Fair and Take Action Not to Discriminate).",
+                backstory: "Your transparency exposes intentional corporate non-compliance, triggering massive GDPR fines. In retaliation, executive leadership constructs a narrative to the tech press, framing you as a rogue engineer who implemented the invasive tracking mechanism without board authorization.",
+                question: "Faced with severe reputational damage, your attorney suggests leaking internal emails that prove the executive board explicitly ordered the tracking feature. Do you leak them?",
                 options: [
-                    { text: "🗣️ Confess immediately to protect your colleague.", nextStep: "final_martyr" },
-                    { text: "🤫 Remain silent to preserve your own safety and let the legal process play out.", nextStep: "final_silent_escape" }
+                    { text: "🗣️ Leak the emails to completely expose the systemic corporate culture.", nextStep: "final_whistleblower_exposure" },
+                    { text: "🤫 Maintain silence, relying entirely on standard employment tribunals to clear your name.", nextStep: "final_scapegoat_defeat" }
                 ]
             },
 
             // FINAL OUTCOMES
-            final_whistleblower: {
-                status: "Outcome • Ethical Victory",
-                backstory: "You lost your job, but you preserved your professional integrity. Under the ACM Code of Ethics and whistleblower protections, you successfully exposed a system that could have cost lives. You are later hired by an AI ethics research institute.",
-                question: "Result: High Professional Integrity.",
+            final_ethical_victory: {
+                status: "Outcome • Professional Integrity",
+                framework: "🛡️ Upheld: ACM Code of Ethics Section 1.2 & General Professional Duty to Public Safety.",
+                backstory: "You lost your job, but you preserved your integrity. Your documentation protects you during subsequent investigations, and your standing within the international tech-governance community grows significantly. You are hired as a Chief Privacy Officer at an ethical AI consortium.",
                 isFinal: true
             },
-            final_compromised: {
-                status: "Outcome • Complicit",
-                backstory: "You saved your job in the short term, but the waiver did not fully shield you. When regulators investigated the biased algorithm, your professional signature was on the approval form. You face severe professional censure and loss of credentials.",
-                question: "Result: Professional Liability.",
+            final_coerced_exit: {
+                status: "Outcome • Compromised Neutrality",
+                framework: "❌ Failed Duty: ACM Code Section 2.5 (High standards of professional competence).",
+                backstory: "The system was launched by your successor and eventually leaked anyway. While you avoided the initial corporate firing squad, the regulatory inquiry uncovers your initial engineering blueprints. You face severe professional scrutiny for failing to secure the data cycle.",
                 isFinal: true
             },
-            final_corporate_coverup: {
-                status: "Outcome • Systemic Failure",
-                backstory: "By deleting the logs, you participated in a corporate cover-up. The company settled out of court, but your self-respect and passion for ethical technology are gone. You remain in a system that prioritizes profits over human compliance.",
-                question: "Result: Complete Ethical Compromise.",
+            final_corporate_shield: {
+                status: "Outcome • Complete Complicity",
+                framework: "🚨 Severe Violations: GDPR Accountability Principle & ACM Code Section 1.3 (Be Honest and Trustworthy).",
+                backstory: "You helped protect the corporate infrastructure from immediate collapse, but the internal culture is toxic. You spend your career maintaining deceptive data architectures, permanently abandoning your commitment to user rights and ethical computing rules.",
                 isFinal: true
             },
-            final_martyr: {
-                status: "Outcome • The Martyr",
-                backstory: "You saved your colleague's career but completely sacrificed your own in the corporate world. While highly praised by tech-ethics communities globally, you face ongoing legal battles regarding proprietary data theft.",
-                question: "Result: High Personal Cost.",
+            final_whistleblower_exposure: {
+                status: "Outcome • Full Disclosure",
+                framework: "⚖️ Enforced: GDPR Transparency mandates and statutory tech whistleblower protections.",
+                backstory: "The leaked emails shift the entire financial and criminal liability onto the executive team. The company faces maximum GDPR penalties ($20M+ or 4% of global turnover). You successfully defended systemic truth, though your access to mainstream corporate roles is restricted.",
                 isFinal: true
             },
-            final_silent_escape: {
-                status: "Outcome • The Bystander",
-                backstory: "The company shifted the blame, your colleague's career was ruined, and you kept your position. The algorithm was quietly patched, but you must live with the psychological weight of your silence.",
-                question: "Result: Survival at an Innocent's Expense.",
+            final_scapegoat_defeat: {
+                status: "Outcome • The Scapegoat",
+                framework: "❌ Violated: ACM Code Section 2.3 (Know and respect existing rules).",
+                backstory: "Without concrete internal corporate proof on the public record, the corporate PR machinery successfully tarnishes your professional reputation. You are held responsible for the architectural failure, while the actual structural incentives remain unchanged.",
                 isFinal: true
             }
         };
@@ -240,9 +242,14 @@
             let html = `
                 <div class="quest-stage">
                     <div class="header-status">${stepData.status}</div>
+                    
+                    /* Renders dynamically after a choice takes place */
                     ${stepData.framework ? `<div class="legal-framework">${stepData.framework}</div>` : ''}
+                    
                     <div class="backstory">${stepData.backstory}</div>
-                    <div class="question">${stepData.question}</div>
+                    
+                    ${!stepData.isFinal ? `<div class="question">${stepData.question}</div>` : ''}
+                    
                     <div class="options-container">
             `;
 
