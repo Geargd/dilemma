@@ -70,7 +70,6 @@
             border-left: 4px solid #f43f5e;
         }
 
-        /* Framework banner placed AFTER the choice feedback */
         .legal-framework {
             font-size: 0.85rem;
             background: rgba(244, 63, 94, 0.1);
@@ -152,7 +151,6 @@
 
     <script>
         const storyTree = {
-            // LEVEL 1: THE INITIAL DILEMMA
             start: {
                 status: "Stage 1 • The Discovery",
                 framework: null,
@@ -164,7 +162,6 @@
                 ]
             },
 
-            // LEVEL 2: PATH A (Safety/Privacy Overrides -> Ends in specific outcomes)
             path_block: {
                 status: "Stage 2 • Corporate Retaliation",
                 framework: "⚖️ Framework Impacted: ACM Code of Ethics (Section 1.2: Avoid Harm & Section 1.6: Respect Privacy). Your decision actively prevented an immediate mass surveillance violation.",
@@ -176,7 +173,6 @@
                 ]
             },
 
-            // LEVEL 2: PATH B (Approving -> Leads deeper to Level 3)
             path_approve_lvl2: {
                 status: "Stage 2 • The Data Breach",
                 framework: "🚨 Regulatory Violation: GDPR Article 5 (Principles relating to processing of personal data) & Article 25 (Data protection by design and by default).",
@@ -188,7 +184,6 @@
                 ]
             },
 
-            // LEVEL 3: DEEP NESTING (Path B continued)
             path_transparency_lvl3: {
                 status: "Stage 3 • Systemic Accountability",
                 framework: "⚖️ Framework Invoked: GDPR Article 33 (Notification of a personal data breach) & ACM Code Section 1.4 (Be Fair and Take Action Not to Discriminate).",
@@ -200,7 +195,6 @@
                 ]
             },
 
-            // FINAL OUTCOMES
             final_ethical_victory: {
                 status: "Outcome • Professional Integrity",
                 framework: "🛡️ Upheld: ACM Code of Ethics Section 1.2 & General Professional Duty to Public Safety.",
@@ -243,7 +237,6 @@
                 <div class="quest-stage">
                     <div class="header-status">${stepData.status}</div>
                     
-                    /* Renders dynamically after a choice takes place */
                     ${stepData.framework ? `<div class="legal-framework">${stepData.framework}</div>` : ''}
                     
                     <div class="backstory">${stepData.backstory}</div>
