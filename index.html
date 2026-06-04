@@ -67,19 +67,31 @@
             background: #1f2937;
             padding: 18px;
             border-radius: 12px;
-            border-left: 4px solid #f43f5e;
+            border-left: 4px solid #3b82f6; /* Нейтральный синий индификатор для историй */
         }
 
+        /* Стили для плашек документов */
         .legal-framework {
             font-size: 0.85rem;
-            background: rgba(244, 63, 94, 0.1);
-            color: #fb7185;
             padding: 10px 14px;
             border-radius: 8px;
             margin-bottom: 20px;
             font-weight: 600;
-            border: 1px solid rgba(244, 63, 94, 0.2);
             line-height: 1.4;
+        }
+
+        /* Красный/Розовый для нарушений */
+        .legal-framework.error {
+            background: rgba(244, 63, 94, 0.1);
+            color: #fb7185;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        /* Зеленый для правильных/этичных решений */
+        .legal-framework.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         .question {
@@ -114,7 +126,7 @@
 
         .option-btn:active {
             background-color: #374151;
-            border-color: #f43f5e;
+            border-color: #3b82f6;
             transform: scale(0.98);
         }
 
@@ -154,6 +166,7 @@
             start: {
                 status: "Stage 1 • The Discovery",
                 framework: null,
+                frameworkType: null,
                 backstory: "You are a Senior Software Architect developing a next-generation autopilot ecosystem. To achieve rapid path-prediction around urban areas, the system continuously captures, profiles, and cross-references biometric facial data and real-time location metrics of unsuspecting street pedestrians, storing it on centralized corporate servers without public consent.",
                 question: "The legal department pushes for an immediate rollout to beat competitors, dismissing privacy concerns as technicalities. Do you sign off on the architecture?",
                 options: [
@@ -164,7 +177,8 @@
 
             path_block: {
                 status: "Stage 2 • Corporate Retaliation",
-                framework: "⚖️ Framework Impacted: ACM Code of Ethics (Section 1.2: Avoid Harm & Section 1.6: Respect Privacy). Your decision actively prevented an immediate mass surveillance violation.",
+                framework: "🛡️ Framework Upheld: ACM Code of Ethics (Section 1.2: Avoid Harm & Section 1.6: Respect Privacy). Your decision actively prevented an immediate mass surveillance violation.",
+                frameworkType: "success", // Зеленый
                 backstory: "By withholding your signature, you stood up for fundamental data rights. However, corporate executives accuse you of insubordination and threatening market survival. They demand you hand over the repository access controls to a junior manager who is willing to approve the system.",
                 question: "If you refuse, you will be terminated immediately and lose your stock options. What do you do?",
                 options: [
@@ -176,6 +190,7 @@
             path_approve_lvl2: {
                 status: "Stage 2 • The Data Breach",
                 framework: "🚨 Regulatory Violation: GDPR Article 5 (Principles relating to processing of personal data) & Article 25 (Data protection by design and by default).",
+                frameworkType: "error", // Красный
                 backstory: "The smart vehicle fleet is deployed. Five months later, a sophisticated cyberattack breaches your centralized servers, leaking unencrypted tracking logs and biometric data of over two million citizens. European data protection authorities launch a major investigation, putting your engineering choices under a microscope.",
                 question: "Company lawyers advise you to claim that the telemetry collection was an unpredictable edge-case system anomaly rather than intentional design. Do you support their narrative?",
                 options: [
@@ -187,6 +202,7 @@
             path_transparency_lvl3: {
                 status: "Stage 3 • Systemic Accountability",
                 framework: "⚖️ Framework Invoked: GDPR Article 33 (Notification of a personal data breach) & ACM Code Section 1.4 (Be Fair and Take Action Not to Discriminate).",
+                frameworkType: "success", // Зеленый (выбрана честность и содействие следствию)
                 backstory: "Your transparency exposes intentional corporate non-compliance, triggering massive GDPR fines. In retaliation, executive leadership constructs a narrative to the tech press, framing you as a rogue engineer who implemented the invasive tracking mechanism without board authorization.",
                 question: "Faced with severe reputational damage, your attorney suggests leaking internal emails that prove the executive board explicitly ordered the tracking feature. Do you leak them?",
                 options: [
@@ -197,31 +213,36 @@
 
             final_ethical_victory: {
                 status: "Outcome • Professional Integrity",
-                framework: "🛡️ Upheld: ACM Code of Ethics Section 1.2 & General Professional Duty to Public Safety.",
+                framework: "🌿 Upheld: ACM Code of Ethics Section 1.2 & General Professional Duty to Public Safety.",
+                frameworkType: "success", // Зеленый
                 backstory: "You lost your job, but you preserved your integrity. Your documentation protects you during subsequent investigations, and your standing within the international tech-governance community grows significantly. You are hired as a Chief Privacy Officer at an ethical AI consortium.",
                 isFinal: true
             },
             final_coerced_exit: {
                 status: "Outcome • Compromised Neutrality",
                 framework: "❌ Failed Duty: ACM Code Section 2.5 (High standards of professional competence).",
+                frameworkType: "error", // Красный
                 backstory: "The system was launched by your successor and eventually leaked anyway. While you avoided the initial corporate firing squad, the regulatory inquiry uncovers your initial engineering blueprints. You face severe professional scrutiny for failing to secure the data cycle.",
                 isFinal: true
             },
             final_corporate_shield: {
                 status: "Outcome • Complete Complicity",
                 framework: "🚨 Severe Violations: GDPR Accountability Principle & ACM Code Section 1.3 (Be Honest and Trustworthy).",
+                frameworkType: "error", // Красный
                 backstory: "You helped protect the corporate infrastructure from immediate collapse, but the internal culture is toxic. You spend your career maintaining deceptive data architectures, permanently abandoning your commitment to user rights and ethical computing rules.",
                 isFinal: true
             },
             final_whistleblower_exposure: {
                 status: "Outcome • Full Disclosure",
                 framework: "⚖️ Enforced: GDPR Transparency mandates and statutory tech whistleblower protections.",
+                frameworkType: "success", // Зеленый
                 backstory: "The leaked emails shift the entire financial and criminal liability onto the executive team. The company faces maximum GDPR penalties ($20M+ or 4% of global turnover). You successfully defended systemic truth, though your access to mainstream corporate roles is restricted.",
                 isFinal: true
             },
             final_scapegoat_defeat: {
                 status: "Outcome • The Scapegoat",
                 framework: "❌ Violated: ACM Code Section 2.3 (Know and respect existing rules).",
+                frameworkType: "error", // Красный
                 backstory: "Without concrete internal corporate proof on the public record, the corporate PR machinery successfully tarnishes your professional reputation. You are held responsible for the architectural failure, while the actual structural incentives remain unchanged.",
                 isFinal: true
             }
@@ -233,11 +254,14 @@
             
             if (!stepData) return;
 
+            // Выбираем класс в зависимости от типа фреймворка
+            const frameworkClass = stepData.frameworkType === 'success' ? 'success' : 'error';
+
             let html = `
                 <div class="quest-stage">
                     <div class="header-status">${stepData.status}</div>
                     
-                    ${stepData.framework ? `<div class="legal-framework">${stepData.framework}</div>` : ''}
+                    ${stepData.framework ? `<div class="legal-framework ${frameworkClass}">${stepData.framework}</div>` : ''}
                     
                     <div class="backstory">${stepData.backstory}</div>
                     
