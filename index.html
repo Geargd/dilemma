@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Дилемма: 3 уровня вложенности</title>
+    <title>Ethical Dilemma: Algorithmic Integrity</title>
     <style>
-        /* Сброс стилей и запрет лишних мобильных эффектов */
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -24,7 +23,6 @@
             overflow-x: hidden; 
         }
 
-        /* Мобильный контейнер */
         .mobile-container {
             width: 100%;
             max-width: 480px;
@@ -45,7 +43,6 @@
             }
         }
 
-        /* Шапка/Прогресс */
         .header-status {
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -55,7 +52,6 @@
             font-weight: 700;
         }
 
-        /* Контентная зона с анимацией */
         .quest-stage {
             display: flex;
             flex-direction: column;
@@ -63,19 +59,28 @@
             animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Предыстория */
         .backstory {
             font-size: 1.05rem;
             line-height: 1.6;
             color: #d1d5db;
             margin-bottom: 20px;
             background: #1f2937;
-            padding: 16px;
+            padding: 18px;
             border-radius: 12px;
             border-left: 4px solid #6366f1;
         }
 
-        /* Вопрос */
+        .legal-framework {
+            font-size: 0.85rem;
+            background: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-weight: 500;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
         .question {
             font-size: 1.25rem;
             font-weight: 600;
@@ -84,7 +89,6 @@
             color: #ffffff;
         }
 
-        /* Блок кнопок внизу экрана */
         .options-container {
             margin-top: auto;
             display: flex;
@@ -93,7 +97,6 @@
             padding-bottom: 10px;
         }
 
-        /* Мобильная кнопка выбора */
         .option-btn {
             background-color: #1f2937;
             color: #ffffff;
@@ -114,7 +117,6 @@
             transform: scale(0.98);
         }
 
-        /* Кнопка "Начать заново" */
         .restart-btn {
             width: 100%;
             margin-top: auto;
@@ -135,14 +137,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -153,75 +149,84 @@
     </div>
 
     <script>
-        // Дерево сценария с 3 уровнями вложенности в ветке Б
         const storyTree = {
-            // [УРОВЕНЬ 1] - СТАРТ
+            // LEVEL 1: THE INITIAL DILEMMA
             start: {
-                status: "Шаг 1 • Начало",
-                backstory: "Перед вами базовая дилемма. У вас есть два принципиальных пути решения изначальной ситуации.",
-                question: "Как вы поступите?",
+                status: "Stage 1 • The Discovery",
+                framework: "Applicable Code: ACM Code of Ethics (Section 1.2: Avoid Harm)",
+                backstory: "You are a Lead Data Scientist deploying an AI-driven predictive risk assessment system for a major healthcare provider. Forty-eight hours before launch, you discover the algorithm consistently misclassifies minority demographic groups as 'low priority' for preventative critical care due to historical training data bias.",
+                question: "Your project manager insists on launching anyway to meet the hard deadline, promising a patch later. What do you do?",
                 options: [
-                    { text: "📱 Действовать строго по инструкции (Путь А)", nextStep: "path_secure" },
-                    { text: "⚡ Рискнуть ради выгоды (Путь Б)", nextStep: "path_risk_lvl2" }
+                    { text: "🛑 Refuse to deploy and formally escalate the bias issue.", nextStep: "path_escalate" },
+                    { text: "🚀 Proceed with the launch but secretly log the algorithmic anomalies.", nextStep: "path_launch_lvl2" }
                 ]
             },
 
-            // [УРОВЕНЬ 2] - ВЕТКА А (Безопасность -> ведет сразу к финалам)
-            path_secure: {
-                status: "Шаг 2 • Развитие Пути А",
-                backstory: "Вы выбрали безопасность. Инструкция уберегла от мгновенных проблем, но теперь внешние обстоятельства изменились.",
-                question: "Ваш финальный ход в этой ветке?",
+            // LEVEL 2: PATH A (Safety first -> branch leads to outcomes)
+            path_escalate: {
+                status: "Stage 2 • The Corporate Backlash",
+                framework: "Applicable Framework: EU AI Act (High-Risk AI Systems Compliance)",
+                backstory: "You blocked the deployment. Management is furious about the missed launch window and accuses you of breaching your employment contract. However, your action aligns perfectly with the EU AI Act, which mandates strict data governance and bias mitigation before deployment.",
+                question: "The executive team demands you sign off on a liability waiver or face termination. How do you respond?",
                 options: [
-                    { text: "Зафиксировать результат и доложить", nextStep: "final_safe_end" },
-                    { text: "Попробовать немного расширить полномочия", nextStep: "final_middle_end" }
+                    { text: "💼 Stand your ground, document the bias, and prepare for legal protection.", nextStep: "final_whistleblower" },
+                    { text: "✍️ Sign the waiver to protect your career, leaving responsibility to the company.", nextStep: "final_compromised" }
                 ]
             },
 
-            // [УРОВЕНЬ 2] - ВЕТКА Б (Риск -> ведет на СЛЕДУЮЩИЙ выбор)
-            path_risk_lvl2: {
-                status: "Шаг 2 • Развитие Пути Б",
-                backstory: "Вы рискнули. Это принесло плоды, но система зафиксировала аномалию. Ситуация накаляется, однако появляется лазейка.",
-                question: "Что вы предпримете, учитывая новые риски?",
+            // LEVEL 2: PATH B (Risk -> continues deeper to Level 3)
+            path_launch_lvl2: {
+                status: "Stage 2 • The Fallout",
+                framework: "Applicable Framework: GDPR (Article 5: Fairness and Transparency)",
+                backstory: "The system is live. Three months later, a public health watchdog publishes a report exposing systemic bias in your software, citing real cases where vulnerable patients were denied early intervention. An internal audit begins, and the company is looking for a scapegoat.",
+                question: "Your recorded logs prove you knew about the issue before launch. What is your next move?",
                 options: [
-                    { text: "Пойти ва-банк и использовать лазейку", nextStep: "path_risk_lvl3_va_bank" },
-                    { text: "Попытаться экстренно свернуть операцию", nextStep: "final_middle_end" }
+                    { text: "💾 Leak the internal logs to the press to prove management knew.", nextStep: "path_leak_lvl3" },
+                    { text: "🤫 Cooperate with the internal legal team and delete your private logs.", nextStep: "final_corporate_coverup" }
                 ]
             },
 
-            // [УРОВЕНЬ 3] - ГЛУБОКАЯ ВЛОЖЕННОСТЬ (Ветка Б продолжается)
-            path_risk_lvl3_va_bank: {
-                status: "Шаг 3 • Критическая точка Пути Б",
-                backstory: "Вы пошли до конца. Лазейка сработала, но теперь вы зашли так далеко, что обратного пути нет. Проверяющие органы уже начали аудит.",
-                question: "Это ваш последний шанс повлиять на последствия. Что делаете?",
+            // LEVEL 3: DEEP NESTING (Path B continued)
+            path_leak_lvl3: {
+                status: "Stage 3 • Whistleblowing",
+                framework: "Applicable Law: Directive (EU) 2019/1937 (Whistleblower Protection)",
+                backstory: "You leaked the data. The media storm is massive. Regulatory bodies are launching multi-million dollar fine proceedings under GDPR and the AI Act. Your identity is secure for now, but an aggressive corporate cybersecurity forensic team is tracking the source of the leak.",
+                question: "A junior colleague is falsely accused of being the leaker and faces immediate termination and legal action. Do you come forward?",
                 options: [
-                    { text: "Уничтожить цифровой след и логи", nextStep: "final_bad_end" },
-                    { text: "Свалить вину на сбой программного обеспечения", nextStep: "final_cyber_excuse" }
+                    { text: "🗣️ Confess immediately to protect your colleague.", nextStep: "final_martyr" },
+                    { text: "🤫 Remain silent to preserve your own safety and let the legal process play out.", nextStep: "final_silent_escape" }
                 ]
             },
 
-            // ФИНАЛЬНЫЕ ЭКРАНЫ
-            final_safe_end: {
-                status: "Итог сценария",
-                backstory: "ФИНАЛ: Полная безопасность. Вы идеально следовали регламенту. Риски нулевые, стабильность максимальная.",
-                question: "Результат: Документ соблюден.",
+            // FINAL OUTCOMES
+            final_whistleblower: {
+                status: "Outcome • Ethical Victory",
+                backstory: "You lost your job, but you preserved your professional integrity. Under the ACM Code of Ethics and whistleblower protections, you successfully exposed a system that could have cost lives. You are later hired by an AI ethics research institute.",
+                question: "Result: High Professional Integrity.",
                 isFinal: true
             },
-            final_middle_end: {
-                status: "Итог сценария",
-                backstory: "ФИНАЛ: Средний исход. Вы смогли лавировать между правилами и выгодой. Есть недочеты, но задача в целом решена.",
-                question: "Результат: Частичный успех.",
+            final_compromised: {
+                status: "Outcome • Complicit",
+                backstory: "You saved your job in the short term, but the waiver did not fully shield you. When regulators investigated the biased algorithm, your professional signature was on the approval form. You face severe professional censure and loss of credentials.",
+                question: "Result: Professional Liability.",
                 isFinal: true
             },
-            final_cyber_excuse: {
-                status: "Итог сценария",
-                backstory: "ФИНАЛ: Рискованный триумф. Версия со сбоем софта сработала. Вы сохранили выгоду, а пробелы списали на технические неполадки. Вы прошлись по краю.",
-                question: "Результат: Опасный, но успешный маневр.",
+            final_corporate_coverup: {
+                status: "Outcome • Systemic Failure",
+                backstory: "By deleting the logs, you participated in a corporate cover-up. The company settled out of court, but your self-respect and passion for ethical technology are gone. You remain in a system that prioritizes profits over human compliance.",
+                question: "Result: Complete Ethical Compromise.",
                 isFinal: true
             },
-            final_bad_end: {
-                status: "Итог сценария",
-                backstory: "ФИНАЛ: Полный крах. Попытка замести следы провалилась, аудит вскрыл умышленные действия. Худший исход из возможных.",
-                question: "Результат: Инструкции грубо нарушены.",
+            final_martyr: {
+                status: "Outcome • The Martyr",
+                backstory: "You saved your colleague's career but completely sacrificed your own in the corporate world. While highly praised by tech-ethics communities globally, you face ongoing legal battles regarding proprietary data theft.",
+                question: "Result: High Personal Cost.",
+                isFinal: true
+            },
+            final_silent_escape: {
+                status: "Outcome • The Bystander",
+                backstory: "The company shifted the blame, your colleague's career was ruined, and you kept your position. The algorithm was quietly patched, but you must live with the psychological weight of your silence.",
+                question: "Result: Survival at an Innocent's Expense.",
                 isFinal: true
             }
         };
@@ -235,6 +240,7 @@
             let html = `
                 <div class="quest-stage">
                     <div class="header-status">${stepData.status}</div>
+                    ${stepData.framework ? `<div class="legal-framework">${stepData.framework}</div>` : ''}
                     <div class="backstory">${stepData.backstory}</div>
                     <div class="question">${stepData.question}</div>
                     <div class="options-container">
@@ -251,7 +257,7 @@
             } else if (stepData.isFinal) {
                 html += `
                     <button class="restart-btn" onclick="renderStep('start')">
-                        🔄 Пройти заново
+                        🔄 Restart Simulation
                     </button>
                 `;
             }
