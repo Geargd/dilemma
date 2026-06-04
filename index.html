@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Дилемма: 3 уровня вложенности</title>
+    <style>
+        /* Сброс стилей и запрет лишних мобильных эффектов */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #090d16;
+            color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden; 
+        }
+
+        /* Мобильный контейнер */
+        .mobile-container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            background: #111827;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            position: relative;
+        }
+
+        @media (min-width: 480px) {
+            .mobile-container {
+                min-height: 85vh;
+                border-radius: 24px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+                border: 1px solid #1f2937;
+            }
+        }
+
+        /* Шапка/Прогресс */
+        .header-status {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #64748b;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        /* Контентная зона с анимацией */
+        .quest-stage {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Предыстория */
+        .backstory {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #d1d5db;
+            margin-bottom: 20px;
+            background: #1f2937;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid #6366f1;
+        }
+
+        /* Вопрос */
+        .question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+
+        /* Блок кнопок внизу экрана */
+        .options-container {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-bottom: 10px;
+        }
+
+        /* Мобильная кнопка выбора */
+        .option-btn {
+            background-color: #1f2937;
+            color: #ffffff;
+            border: 1px solid #374151;
+            padding: 18px 20px;
+            font-size: 1rem;
+            border-radius: 14px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 500;
+            line-height: 1.4;
+            transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+        }
+
+        .option-btn:active {
+            background-color: #374151;
+            border-color: #818cf8;
+            transform: scale(0.98);
+        }
+
+        /* Кнопка "Начать заново" */
+        .restart-btn {
+            width: 100%;
+            margin-top: auto;
+            background: #312e81;
+            color: #e0e7ff;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(49, 46, 129, 0.3);
+        }
+
+        .restart-btn:active {
+            background: #3c38ca;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        <div id="quest-root" style="display: contents;"></div>
+    </div>
+
+    <script>
+        // Дерево сценария с 3 уровнями вложенности в ветке Б
+        const storyTree = {
+            // [УРОВЕНЬ 1] - СТАРТ
+            start: {
+                status: "Шаг 1 • Начало",
+                backstory: "Перед вами базовая дилемма. У вас есть два принципиальных пути решения изначальной ситуации.",
+                question: "Как вы поступите?",
+                options: [
+                    { text: "📱 Действовать строго по инструкции (Путь А)", nextStep: "path_secure" },
+                    { text: "⚡ Рискнуть ради выгоды (Путь Б)", nextStep: "path_risk_lvl2" }
+                ]
+            },
+
+            // [УРОВЕНЬ 2] - ВЕТКА А (Безопасность -> ведет сразу к финалам)
+            path_secure: {
+                status: "Шаг 2 • Развитие Пути А",
+                backstory: "Вы выбрали безопасность. Инструкция уберегла от мгновенных проблем, но теперь внешние обстоятельства изменились.",
+                question: "Ваш финальный ход в этой ветке?",
+                options: [
+                    { text: "Зафиксировать результат и доложить", nextStep: "final_safe_end" },
+                    { text: "Попробовать немного расширить полномочия", nextStep: "final_middle_end" }
+                ]
+            },
+
+            // [УРОВЕНЬ 2] - ВЕТКА Б (Риск -> ведет на СЛЕДУЮЩИЙ выбор)
+            path_risk_lvl2: {
+                status: "Шаг 2 • Развитие Пути Б",
+                backstory: "Вы рискнули. Это принесло плоды, но система зафиксировала аномалию. Ситуация накаляется, однако появляется лазейка.",
+                question: "Что вы предпримете, учитывая новые риски?",
+                options: [
+                    { text: "Пойти ва-банк и использовать лазейку", nextStep: "path_risk_lvl3_va_bank" },
+                    { text: "Попытаться экстренно свернуть операцию", nextStep: "final_middle_end" }
+                ]
+            },
+
+            // [УРОВЕНЬ 3] - ГЛУБОКАЯ ВЛОЖЕННОСТЬ (Ветка Б продолжается)
+            path_risk_lvl3_va_bank: {
+                status: "Шаг 3 • Критическая точка Пути Б",
+                backstory: "Вы пошли до конца. Лазейка сработала, но теперь вы зашли так далеко, что обратного пути нет. Проверяющие органы уже начали аудит.",
+                question: "Это ваш последний шанс повлиять на последствия. Что делаете?",
+                options: [
+                    { text: "Уничтожить цифровой след и логи", nextStep: "final_bad_end" },
+                    { text: "Свалить вину на сбой программного обеспечения", nextStep: "final_cyber_excuse" }
+                ]
+            },
+
+            // ФИНАЛЬНЫЕ ЭКРАНЫ
+            final_safe_end: {
+                status: "Итог сценария",
+                backstory: "ФИНАЛ: Полная безопасность. Вы идеально следовали регламенту. Риски нулевые, стабильность максимальная.",
+                question: "Результат: Документ соблюден.",
+                isFinal: true
+            },
+            final_middle_end: {
+                status: "Итог сценария",
+                backstory: "ФИНАЛ: Средний исход. Вы смогли лавировать между правилами и выгодой. Есть недочеты, но задача в целом решена.",
+                question: "Результат: Частичный успех.",
+                isFinal: true
+            },
+            final_cyber_excuse: {
+                status: "Итог сценария",
+                backstory: "ФИНАЛ: Рискованный триумф. Версия со сбоем софта сработала. Вы сохранили выгоду, а пробелы списали на технические неполадки. Вы прошлись по краю.",
+                question: "Результат: Опасный, но успешный маневр.",
+                isFinal: true
+            },
+            final_bad_end: {
+                status: "Итог сценария",
+                backstory: "ФИНАЛ: Полный крах. Попытка замести следы провалилась, аудит вскрыл умышленные действия. Худший исход из возможных.",
+                question: "Результат: Инструкции грубо нарушены.",
+                isFinal: true
+            }
+        };
+
+        function renderStep(stepId) {
+            const stepData = storyTree[stepId];
+            const root = document.getElementById('quest-root');
+            
+            if (!stepData) return;
+
+            let html = `
+                <div class="quest-stage">
+                    <div class="header-status">${stepData.status}</div>
+                    <div class="backstory">${stepData.backstory}</div>
+                    <div class="question">${stepData.question}</div>
+                    <div class="options-container">
+            `;
+
+            if (stepData.options && stepData.options.length > 0) {
+                stepData.options.forEach(opt => {
+                    html += `
+                        <button class="option-btn" onclick="renderStep('${opt.nextStep}')">
+                            ${opt.text}
+                        </button>
+                    `;
+                });
+            } else if (stepData.isFinal) {
+                html += `
+                    <button class="restart-btn" onclick="renderStep('start')">
+                        🔄 Пройти заново
+                    </button>
+                `;
+            }
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            root.innerHTML = html;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = function() {
+            renderStep('start');
+        };
+    </script>
+</body>
+</html>
